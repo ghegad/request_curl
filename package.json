@@ -1,7 +1,6 @@
 {
-  "name": "request_curl",
+  "name": "@ghegad/request_curl",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -12,5 +11,15 @@
   "license": "MIT",
   "dependencies": {
     "child_process": "^1.0.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghegad/request_curl.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ghegad/request_curl/issues"
+  },
+  "homepage": "https://github.com/ghegad/request_curl#readme",
+  "description": ""
 }
