@@ -9,7 +9,7 @@ request_curl permis de d'envoire des requests avec curl, utile pour les response
 Install my-project with npm
 
 ```bash
-  npm install request_curl
+  npm i @ghegad/request_curl
 ```
     
 ## Authors
