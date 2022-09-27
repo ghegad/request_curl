@@ -27,7 +27,7 @@ Install my-project with npm
 # import request_curl
 
 ```js
-import {request_curl} from "request_curl";
+import {request_curl} from "@ghegad/request_curl";
 ```
 
 # affiche la reponse
