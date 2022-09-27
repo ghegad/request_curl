@@ -1,11 +1,8 @@
 import exec  from "child_process";
-
 var curl_exe = exec.execFile;
-
 export async function request_curl(option,mycallback)
 {
     var options = ['--fail','--include',"--insecure"];
-    
     if(option.timeout){
         options.push('--connect-timeout');
         options.push(option.timeout);
@@ -71,9 +68,7 @@ export async function request_curl(option,mycallback)
         var status  = "";
         var body = "";
         if(!err){
-        headers = {};
         status  = data.split("\n")[0].split(' ')[1];
-        body = "";
         var body_begin = false;
         for(var i = 1;i<data.split("\n").length;i++)
         {
