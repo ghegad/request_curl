@@ -2,7 +2,7 @@ import exec  from "child_process";
 
 var curl_exe = exec.execFile;
 
-export async function curl(option,mycallback)
+export async function request_curl(option,mycallback)
 {
     var options = ['--fail','--include',"--insecure"];
     

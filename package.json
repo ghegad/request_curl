@@ -21,5 +21,8 @@
     "url": "https://github.com/ghegad/request_curl/issues"
   },
   "homepage": "https://github.com/ghegad/request_curl#readme",
-  "description": ""
+  "description": "",
+  "publishConfig": {
+    "access": "public"
+  }
 }
