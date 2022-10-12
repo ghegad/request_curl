@@ -2,7 +2,7 @@ import exec  from "child_process";
 var curl_exe = exec.execFile;
 export async function request_curl(option,mycallback)
 {
-    var options = ['--fail','--include',"--insecure"];
+    var options = ['--include',"--insecure"];
     if(option.timeout){
         options.push('--connect-timeout');
         options.push(option.timeout);
@@ -11,15 +11,15 @@ export async function request_curl(option,mycallback)
         options.push('--request');
         options.push(option.method);
     }
-    if(options.proxy)
+    if(option.proxy)
     {
         options.push('--proxy');
-        options.push(options.proxy);
+        options.push(option.proxy);
     }
-    if(options.auth)
+    if(option.auth)
     {
         options.push('--proxy-user');
-        options.push(options.auth);
+        options.push(option.auth);
     }
     if(option.headers)
     {
@@ -28,11 +28,6 @@ export async function request_curl(option,mycallback)
             options.push("--header");
             options.push(head+" : "+option.headers[head]);
         }
-    }
-    if(option.url)
-    {
-            options.push(option.url);
-        
     }
     if(option.data)
     {
@@ -63,14 +58,24 @@ export async function request_curl(option,mycallback)
             options.push(params+"="+option.formData[params]);
         }
     }
-    await curl_exe('curl', options, function(err, data) {
+    if(option.url)
+    {
+            options.push(option.url);
+    }
+    await curl_exe('curl.exe', options, function(err, data) {
         var headers = {};
         var status  = "";
         var body = "";
         if(!err){
         status  = data.split("\n")[0].split(' ')[1];
         var body_begin = false;
-        for(var i = 1;i<data.split("\n").length;i++)
+        var i = 1;
+        if(option.proxy)
+        {
+            i = 3;
+            status  = data.split("\n")[2].split(' ')[1];
+        }
+        for(i;i<data.split("\n").length;i++)
         {
             if(body_begin)
             {
