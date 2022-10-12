@@ -11,22 +11,12 @@ export async function request_curl(option,mycallback)
         options.push('--request');
         options.push(option.method);
     }
-    if(option.proxy)
-    {
-        options.push('--proxy');
-        options.push(option.proxy);
-    }
-    if(option.auth)
-    {
-        options.push('--proxy-user');
-        options.push(option.auth);
-    }
     if(option.headers)
     {
         for(let head in option.headers)
         {
             options.push("--header");
-            options.push(head+" : "+option.headers[head]);
+            options.push(head+": "+option.headers[head]);
         }
     }
     if(option.data)
@@ -57,6 +47,16 @@ export async function request_curl(option,mycallback)
             options.push("--form");
             options.push(params+"="+option.formData[params]);
         }
+    }
+    if(option.proxy)
+    {
+        options.push('--proxy');
+        options.push(option.proxy);
+    }
+    if(option.auth)
+    {
+        options.push('--proxy-user');
+        options.push(option.auth);
     }
     if(option.url)
     {
