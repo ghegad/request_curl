@@ -1,7 +1,6 @@
-
 # request_curl - Simple request using CURL
 
-request_curl permis de d'envoire des requests avec curl, utile pour les response 403 de cloudfront aussi.
+request_curl vous permet de d'envoyer des requests avec curl, utile pour les response 403 de cloudfront aussi.
 
 
 ## Installation
@@ -62,29 +61,16 @@ const options = {
 
 # request POST avec data
 
-```js
-const options = {
-    url: "https://example.com/",
-    method: "POST",
-    data:{
-        "key1":"1",
-        "key2":"2"
-    }
-};
-```
-
-# request POST avec data
-
 envoie des data normal
 
 ```js
 const options = {
     url: "https://example.com/",
     method: "POST",
-    data:{
+    data:querystring.stringify({
         "key1":"1",
         "key2":"2"
-    }
+    })
 };
 ```
 la request json data
@@ -122,4 +108,12 @@ const options = {
     auth : "user:password"
 };
 ```
+ou 
 
+```js
+const options = {
+    url: "https://example.com/",
+    method: "GET",
+    proxy : "http://user:password@127.0.0.1:8080"
+};
+```
