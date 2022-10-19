@@ -1,5 +1,10 @@
 import exec  from "child_process";
 var curl_exe = exec.execFile;
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export async function request_curl(option,mycallback)
 {
     var options = ['--include',"--insecure"];
@@ -22,23 +27,7 @@ export async function request_curl(option,mycallback)
     if(option.data)
     {
         options.push("--data");
-        var datas = "";
-        if(option.data_type)
-        {
-            if(option.data_type == "json")
-            {
-                datas = JSON.stringify(option.data);
-            }  
-        }
-        if(datas == ""){
-            for(let params in option.data)
-            {
-                if(datas != "")
-                datas += "&";
-                datas += params+"="+option.data[params];
-            }
-        }
-        options.push(datas);
+        options.push(option.data);
     }
     if(option.formData)
     {
@@ -62,10 +51,13 @@ export async function request_curl(option,mycallback)
     {
             options.push(option.url);
     }
-    await curl_exe('curl.exe', options, function(err, data) {
-        var headers = {};
-        var status  = "";
-        var body = "";
+    var headers = {};
+    var status  = null;
+    var body = null;
+    var error  = null;
+    var isdone = false;
+    curl_exe('curl.exe', options, function(err, data) {
+        error = err;
         if(!err){
         status  = data.split("\n")[0].split(' ')[1];
         var body_begin = false;
@@ -88,7 +80,13 @@ export async function request_curl(option,mycallback)
             }
         }
         }
+        
         mycallback(status,headers,body,err);
-        return;
+        isdone = true;
     });
+    while(!isdone)
+    {
+        await new Promise(resolve => setTimeout(resolve, 20));
+    }
+    return {status,headers,body,error};
 }
